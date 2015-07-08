@@ -2,7 +2,7 @@ extern crate serde;
 
 use serde::json::{self, Value};
 use serde::json::error::*;
-use std::io::{Read, Write};
+use std::io::{ErrorKind, Read, Write};
 
 fn die<T: std::error::Error>(e: T) -> ! {
     writeln!(&mut std::io::stderr(), "error: {:?}", e).ok();
@@ -10,7 +10,17 @@ fn die<T: std::error::Error>(e: T) -> ! {
 }
 
 fn main() {
-    let mut reader = std::io::stdin();
+    let args: Vec<_> = std::env::args().collect();
+    let mut reader = match args.len() {
+        1 => Box::new(std::io::stdin()) as Box<Read>,
+        2 => {
+            match std::fs::File::open(&args[1]) {
+                Ok(f) => Box::new(f) as Box<Read>,
+                Err(e) => die(e)
+            }
+        },
+        _ => die(std::io::Error::new(ErrorKind::InvalidInput, "too many args"))
+    };
     let mut string = String::new();
     reader.read_to_string(&mut string).ok().unwrap();
     if string.len() == 0 {
