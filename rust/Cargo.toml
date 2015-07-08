@@ -1,0 +1,7 @@
+[package]
+name = "jsonformatter"
+version = "0.1.0"
+authors = ["Pedro Araujo <pedro.araujo@blip.pt>"]
+
+[dependencies]
+serde = "0.4"
