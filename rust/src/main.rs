@@ -23,10 +23,6 @@ fn main() {
     };
     let mut string = String::new();
     reader.read_to_string(&mut string).ok().unwrap();
-    if string.len() == 0 {
-        println!("Got nothing from stdin");
-        return;
-    }
     let data: Value = match json::from_str(&string) {
         Ok(v) => v,
         Err(Error::SyntaxError(ErrorCode::ExpectedSomeValue, _, _)) => {
