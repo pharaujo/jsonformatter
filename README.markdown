@@ -8,7 +8,9 @@ Example
 -------
 
 ```bash
-curl -s <url> | jsonformatter
+$ curl -s <url> | jsonformatter
+(...)
+$ jsonformatter file.json
 ```
 
 
