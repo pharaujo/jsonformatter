@@ -5,4 +5,4 @@ require 'json'
 string = ARGF.read
 string.gsub!(/^[^\(]+\((.+)\);$/, '\1') # if string.end_with? ';'
 
-JSON.pretty_generate(JSON.parse(string))
+puts JSON.pretty_generate(JSON.parse(string))
