@@ -2,11 +2,12 @@
 
 require 'json'
 
-string = ARGF.read
-string.gsub!(/^[^\(]+\((.+)\);$/, '\1') # if string.end_with? ';'
-
 begin
+  string = ARGF.read
+  string.gsub!(/^[^\(]+\((.+)\);$/, '\1') # if string.end_with? ';'
   puts JSON.pretty_generate(JSON.parse(string))
+rescue Interrupt
+  abort('')
 rescue
   abort("Malformed input.")
 end
