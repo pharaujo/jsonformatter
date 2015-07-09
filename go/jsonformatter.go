@@ -12,6 +12,14 @@ func main() {
 	var ir interface{}
 	var b []byte
 	switch len(os.Args) {
+	case 1:
+		buf, err := ioutil.ReadAll(os.Stdin)
+		if err != nil {
+			fmt.Print(err)
+			os.Exit(1)
+		} else {
+			b = buf
+		}
 	case 2:
 		buf, err := ioutil.ReadFile(os.Args[1])
 		if err != nil {
