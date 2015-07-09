@@ -1,5 +1,5 @@
-jsonformatter implemented in various different programming languages
-====================================================================
+Multiple implementations of a JSON pretty printer
+=================================================
 
 `jsonformatter` pretty-prints JSON(P) from file or piped through stdin.
 
