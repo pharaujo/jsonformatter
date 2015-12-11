@@ -16,10 +16,10 @@ fn main() {
         2 => {
             match std::fs::File::open(&args[1]) {
                 Ok(f) => Box::new(f) as Box<Read>,
-                Err(e) => die(e)
+                Err(e) => die(e),
             }
-        },
-        _ => die(std::io::Error::new(ErrorKind::InvalidInput, "too many args"))
+        }
+        _ => die(std::io::Error::new(ErrorKind::InvalidInput, "too many args")),
     };
     let mut string = String::new();
     reader.read_to_string(&mut string).ok().unwrap();
@@ -29,14 +29,13 @@ fn main() {
             string = string.replace("infoCallback(", "").replace(");", "");
             match json::from_str(&string) {
                 Ok(v) => v,
-                Err(e) => die(e)
+                Err(e) => die(e),
             }
-        },
-        Err(e) => die(e)
+        }
+        Err(e) => die(e),
     };
     match json::ser::to_string_pretty(&data) {
         Ok(v) => print!("{}", v),
-        Err(e) => die(e)
+        Err(e) => die(e),
     };
 }
-
