@@ -4,4 +4,4 @@ version = "0.1.0"
 authors = ["Pedro Araujo <pedro.araujo@blip.pt>"]
 
 [dependencies]
-serde = "0.4"
+serde_json = "0.6"
