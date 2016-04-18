@@ -25,7 +25,7 @@ fn main() {
     reader.read_to_string(&mut string).ok().unwrap();
     let data: Value = match serde_json::de::from_str(&string) {
         Ok(v) => v,
-        Err(Error::SyntaxError(ErrorCode::ExpectedSomeValue, _, _)) => {
+        Err(Error::Syntax(ErrorCode::ExpectedSomeValue, _, _)) => {
             string = string.replace("infoCallback(", "").replace(");", "");
             match serde_json::de::from_str(&string) {
                 Ok(v) => v,
