@@ -1,7 +1,6 @@
 extern crate serde_json;
 
 use serde_json::Value;
-use serde_json::error::*;
 use std::io::{ErrorKind, Read, Write};
 
 fn die<T: std::error::Error>(e: T) -> ! {
@@ -23,18 +22,18 @@ fn main() {
     };
     let mut string = String::new();
     reader.read_to_string(&mut string).ok().unwrap();
-    let data: Value = match serde_json::de::from_str(&string) {
+    let data: Value = match serde_json::from_str(&string) {
         Ok(v) => v,
-        Err(Error::Syntax(ErrorCode::ExpectedSomeValue, _, _)) => {
+        Err(ref e) if e.is_syntax() => {
             string = string.replace("infoCallback(", "").replace(");", "");
-            match serde_json::de::from_str(&string) {
+            match serde_json::from_str(&string) {
                 Ok(v) => v,
                 Err(e) => die(e),
             }
         }
         Err(e) => die(e),
     };
-    match serde_json::ser::to_string_pretty(&data) {
+    match serde_json::to_string_pretty(&data) {
         Ok(v) => print!("{}", v),
         Err(e) => die(e),
     };
