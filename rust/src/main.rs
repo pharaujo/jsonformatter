@@ -11,10 +11,10 @@ fn die<T: std::error::Error>(e: T) -> ! {
 fn main() {
     let args: Vec<_> = std::env::args().collect();
     let mut reader = match args.len() {
-        1 => Box::new(std::io::stdin()) as Box<Read>,
+        1 => Box::new(std::io::stdin()) as Box<dyn Read>,
         2 => {
             match std::fs::File::open(&args[1]) {
-                Ok(f) => Box::new(f) as Box<Read>,
+                Ok(f) => Box::new(f) as Box<dyn Read>,
                 Err(e) => die(e),
             }
         }
